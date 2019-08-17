@@ -8,14 +8,17 @@ package tw.brad.apps.brad24;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private TextView tv;
-    private  MyReceiver myReceiver;
+    private MyReceiver myReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tv= findViewById(R.id.tv);
+
+
+        //廣播接收
+        myReceiver = new MyReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("brad");
+        registerReceiver(myReceiver, filter);
     }
 
     @Override
@@ -37,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         startService(intent);//開始連線到那個Servire
 
     }
-        //改變i值
+        //改變i值，產生亂數
     public void test2(View view){
         Intent intent = new Intent(this,MyService.class);
         intent.putExtra("data",(int)( Math.random()*1000));//這邊給值給servire
@@ -51,4 +61,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //接收廣播的i值,並且顯示在頁面上
+    private class MyReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            int i = intent.getIntExtra("i", -1);
+            tv.setText("" + i) ;
+        }
+    }
+
 }

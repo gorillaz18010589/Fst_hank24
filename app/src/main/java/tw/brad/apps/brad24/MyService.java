@@ -1,5 +1,6 @@
 package tw.brad.apps.brad24;
 
+
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
@@ -8,11 +9,9 @@ import android.util.Log;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MyService extends Service {
-    public MyService() {//建構是很少用
-    }
-    private Timer timer;
-    private  int i = 0;
+    public class MyService extends Service {
+        private Timer timer;
+        private int i;
     @Override
     public IBinder onBind(Intent intent) { //這個方法是抽象方法需要實做,用再綁定型上面
         // TODO: Return the communication channel to the service.
@@ -26,10 +25,10 @@ public class MyService extends Service {
         super.onCreate();
         Log.v("brad","onCreate");
         timer = new Timer();
-        timer.schedule(MyTask,);
+        timer.schedule(new MyTask(), 0, 1*1000); //執行這方法每秒都執行
     }
 
-    //創建一個一秒一值家的任務
+    //創建一個一秒一值家的任務,如果除已10時
     private  class  MyTask extends TimerTask{
         @Override
         public void run() {
@@ -60,14 +59,15 @@ public class MyService extends Service {
 
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.v("brad"," onDestroy");
+        @Override
+        public void onDestroy() {
+            super.onDestroy();
+            Log.v("brad", "onDestroy");
 
-        if(timer != null){
-            timer.cancel();
-            timer.purge();
+            if (timer != null){
+                timer.cancel();
+                timer.purge();
+                timer = null;
+            }
         }
     }
-}

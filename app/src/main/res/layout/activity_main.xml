@@ -8,17 +8,18 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-  <TextView
-      android:id="@+id/tv"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content" />
-
-  <Button
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:onClick="test1"
-      android:text="Test1"
-      />
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="test1"
+        android:text="Test1"
+        />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
